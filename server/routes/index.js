@@ -34,4 +34,6 @@ router.post('/message', controllers.message.post)
 
 // 测试 demo api //
 router.get('/demo', controllers.demo)
+router.post('/addbook', controllers.addbook)
+
 module.exports = router

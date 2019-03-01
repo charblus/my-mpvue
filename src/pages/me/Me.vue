@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <button v-if='!userinfo.openId'  open-type="getUserInfo" @click="login">登录</button>
+    <button  v-if='!userInfo.openId'  open-type="getUserInfo" @click="login">登录</button>
     <div class="userinfo" >
       <img :src="userInfo.avatarUrl" alt="">
       <p>{{userInfo.nickName}}</p>
     </div>
     <YearProgress></YearProgress>
-    <button v-if='userinfo.openId' @click="scanBook" class='btn'>添加图书</button>
+    <button v-if='userInfo.openId' @click="scanBook" class='btn'>添加图书</button>
   </div>
 </template>
 
@@ -22,12 +22,31 @@ export default {
   data () {
     return {
       userInfo: {
-        avatarUrl: '../../../static/img/unlogin.png',
+        avatarUrl: require('../../../static/img/unlogin.png'),
         nickName: '未登录'
       }
     }
   },
   methods: {
+    async addBook(isbn) {
+      const res = await post('/weapp/addbook', {
+        isbn,
+        openid: this.userInfo.openId
+      })
+      if(res.code == 0&& res.data.title) {
+        showSuccess('添加成功', `${res.data.title}添加成功`)
+      }
+    },
+    scanBook () {
+      wx.scanCode({
+        success: (res) => {
+          if (res.result) {
+            // console.log(res.result)
+            this.addBook(res.result);
+          }
+        }
+      })
+    },
     login () {
       let user = wx.getStorageSync('userInfo')
       if (!user) {
@@ -56,15 +75,6 @@ export default {
         this.userInfo = userInfo
       }
     },
-    scanBook () {
-      wx.scanCode({
-        success: (res) => {
-          if (res.result) {
-            console.log(res.result)
-          }
-        }
-      })
-    }
   }
 }
 
