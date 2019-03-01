@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <button  open-type="getUserInfo" @click="login">登录</button>
+    <button v-if='!userinfo.openId'  open-type="getUserInfo" @click="login">登录</button>
     <div class="userinfo" >
       <img :src="userInfo.avatarUrl" alt="">
       <p>{{userInfo.nickName}}</p>
     </div>
     <YearProgress></YearProgress>
-    <button @click="scanBook" class='btn'>添加图书</button>
+    <button v-if='userinfo.openId' @click="scanBook" class='btn'>添加图书</button>
   </div>
 </template>
 
@@ -21,29 +21,47 @@ export default {
   },
   data () {
     return {
-      isLogin: false,
-      userInfo: { }
+      userInfo: {
+        avatarUrl: '../../../static/img/unlogin.png',
+        nickName: '未登录'
+      }
     }
   },
   methods: {
     login () {
-      qcloud.setLoginUrl(config.loginUrl)
-      qcloud.login({
-        success: function (userInfo) {
-          console.log('登录成功', userInfo)
-          showSuccess('登录成功')
-          wx.setStorageSync('userInfo', userInfo)
-        },
-        fail: function (err) {
-          console.log('登录失败', err)
-        }
-      })
-      this.userInfo = wx.getStorageSync('userInfo')
+      let user = wx.getStorageSync('userInfo')
+      if (!user) {
+        qcloud.setLoginUrl(config.loginUrl)
+        qcloud.login({
+          success: (userInfo) => {
+            qcloud.request({
+              url: config.userUrl,
+              login: true,
+              success: (userRes) => {
+                showSuccess('登录成功')
+                wx.setStorageSync('userInfo', userRes.data.data)
+                this.userInfo = userRes.data.data
+              }
+            })
+          },
+          fail: function (err) {
+            console.log('登录失败', err)
+          }
+        })
+      }
+    },
+    onShow () {
+      let userInfo = wx.getStorageSync('userInfo')
+      if (userInfo) {
+        this.userInfo = userInfo
+      }
     },
     scanBook () {
       wx.scanCode({
-        success (res) {
-          console.log(res)
+        success: (res) => {
+          if (res.result) {
+            console.log(res.result)
+          }
         }
       })
     }
