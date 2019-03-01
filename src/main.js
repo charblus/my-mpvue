@@ -7,7 +7,7 @@ app.$mount()
 
 export default{
   config: {
-    pages: ['^pages/books/main'],
+    pages: ['^pages/me/main'],
     'window': {
       'backgroundTextStyle': 'light',
       'navigationBarBackgroundColor': '#EA5149',
