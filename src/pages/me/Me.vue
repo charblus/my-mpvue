@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {showSuccess} from '@/util'
+import {showSuccess, post, showModal} from '@/util'
 import config from '@/config'
 import qcloud from 'wafer2-client-sdk'
 import YearProgress from '@/components/YearProgress'
@@ -27,21 +27,24 @@ export default {
       }
     }
   },
+  created () {
+    this.onShow();
+  },
   methods: {
     async addBook(isbn) {
+     
       const res = await post('/weapp/addbook', {
         isbn,
         openid: this.userInfo.openId
       })
-      if(res.code == 0&& res.data.title) {
-        showSuccess('添加成功', `${res.data.title}添加成功`)
-      }
+      console.log(res);
+      showModal('添加成功', `${res.title}添加成功`)
     },
     scanBook () {
       wx.scanCode({
         success: (res) => {
           if (res.result) {
-            // console.log(res.result)
+            console.log(res.result)
             this.addBook(res.result);
           }
         }
@@ -78,32 +81,6 @@ export default {
   }
 }
 
-// import qcloud from 'wafer2-client-sdk'
-// import config from '@/config'
-
-// export default {
-//   data () {
-//     return {
-//       userInfo: { }
-//     }
-//   },
-//   methods: {
-//     login(){
-//       console.log('1122334455667799')
-//       // qcloud.setLoginUrl(config.loginUrl);
-//       // qcloud.login({
-//       //     success: function (userInfo) {
-//       //         console.log('登录成功', userInfo);
-//       //         wx.setStorageSync('userInfo', userInfo)
-//       //     },
-//       //     fail: function (err) {
-//       //         console.log('登录失败', err);
-//       //     }
-//       // });
-//       // this.userInfo = wx.getStorageSync('userInfo')
-//     }
-//   }
-// }
 </script>
 
 
