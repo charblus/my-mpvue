@@ -34,6 +34,9 @@ router.post('/message', controllers.message.post)
 
 // 测试 demo api //
 router.get('/demo', controllers.demo)
+// 添加图书
 router.post('/addbook', controllers.addbook)
+// 获取图书列表
+router.get('/booklist', controllers.booklist)
 
 module.exports = router
