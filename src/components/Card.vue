@@ -6,7 +6,7 @@
     <div class="detail">
       <div class="row text-primary">
         <div class="right">
-          {{book.rate}}
+          {{book.rate}} <Rate :value="book.rate" />
         </div>
         <div class="left">
           {{book.title}}
@@ -33,10 +33,13 @@
   </div>
 </template>
 <script>
+import Rate from '@/components/Rate';
 export default {
-  props: ['book'],
+  components:{
+    Rate
+  },
+  props: ['book']
 
-  
 }
 </script>
 <style lang='scss' scoped>

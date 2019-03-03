@@ -5,27 +5,26 @@
   </div>
 </template>
 <script>
-import {get} from '@/util';
+import {get} from '@/util'
 import Card from '@/components/Card'
 export default {
   components: {
     Card
   },
-  data() {
+  data () {
     return {
       books: []
     }
   },
   methods: {
-    async getList() {
-      const books = await get('/weapp/booklist');
-      console.log(books);
-      this.books = books.list;
-      
+    async getList () {
+      const books = await get('/weapp/booklist')
+      console.log(books)
+      this.books = books.list
     }
   },
-  mounted() {
-    this.getList();
+  mounted () {
+    this.getList()
   }
 }
 </script>

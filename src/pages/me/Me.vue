@@ -28,16 +28,15 @@ export default {
     }
   },
   created () {
-    this.onShow();
+    this.onShow()
   },
   methods: {
-    async addBook(isbn) {
-     
+    async addBook (isbn) {
       const res = await post('/weapp/addbook', {
         isbn,
         openid: this.userInfo.openId
       })
-      console.log(res);
+      console.log(res)
       showModal('添加成功', `${res.title}添加成功`)
     },
     scanBook () {
@@ -45,7 +44,7 @@ export default {
         success: (res) => {
           if (res.result) {
             console.log(res.result)
-            this.addBook(res.result);
+            this.addBook(res.result)
           }
         }
       })
@@ -77,10 +76,9 @@ export default {
       if (userInfo) {
         this.userInfo = userInfo
       }
-    },
+    }
   }
 }
-
 </script>
 
 
