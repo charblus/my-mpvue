@@ -1,12 +1,16 @@
 <template>
   <div>
     <p>图书列表</p>
-    <div v-for="book in books" :key="book.openid">{{book.title}}</div>
+    <Card v-for="book in books" :key="book.openid" :book='book'></Card>
   </div>
 </template>
 <script>
 import {get} from '@/util';
+import Card from '@/components/Card'
 export default {
+  components: {
+    Card
+  },
   data() {
     return {
       books: []
