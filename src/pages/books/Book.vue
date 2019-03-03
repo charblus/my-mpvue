@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>图书列表</p>
+    <!-- <p>图书列表</p> -->
     <Card v-for="book in books" :key="book.openid" :book='book'></Card>
   </div>
 </template>
@@ -19,9 +19,13 @@ export default {
   methods: {
     async getList () {
       const books = await get('/weapp/booklist')
-      console.log(books)
+      // console.log(books)
       this.books = books.list
     }
+  },
+  onPullDownRefresh() {
+    console.log('下拉');
+
   },
   mounted () {
     this.getList()

@@ -8,7 +8,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#EA5149",
     "navigationBarTitleText": "蜗牛图书",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "list": [
