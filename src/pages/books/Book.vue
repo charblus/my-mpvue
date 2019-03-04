@@ -2,6 +2,7 @@
   <div>
     <!-- <p>图书列表</p> -->
     <Card v-for="book in books" :key="book.openid" :book='book'></Card>
+
   </div>
 </template>
 <script>
@@ -18,13 +19,17 @@ export default {
   },
   methods: {
     async getList () {
-      const books = await get('/weapp/booklist')
+      wx.showNavigationBarLoading();
+      const books = await get('/weapp/booklist');
       // console.log(books)
-      this.books = books.list
+      this.books = books.list;
+      wx.stopPullDownRefresh();
+      wx.hideNavigationBarLoading();
     }
   },
   onPullDownRefresh() {
-    console.log('下拉');
+    this.getList();
+    // console.log('下拉');
 
   },
   mounted () {
