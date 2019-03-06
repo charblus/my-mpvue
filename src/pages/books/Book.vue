@@ -36,14 +36,27 @@ export default {
     async getList (init) {
       if (init) {
         this.page = 0;
+        this.more = true;
       }
       wx.showNavigationBarLoading();
       const books = await get('/weapp/booklist', {page:this.page});
-      // console.log(books)
-      this.books = books.list;
-      wx.stopPullDownRefresh();   // 手动停止下拉刷新
+      if (books.list.length<10 && this.page>0) {
+        this.more = false;  // 这种情况下 没有更多数据了
+        // console.log(this.more);
+      }
+      if (init) {
+        this.books = books.list;
+        wx.stopPullDownRefresh();   // 手动停止下拉刷新
+      } else {
+        // 下拉刷新，不能直接覆盖books 而是累加
+        this.books = this.books.concat(books.list); 
+      }
       wx.hideNavigationBarLoading();  // 关闭下拉刷新加载
-    }
+    },
+    // async getTop() {
+    //   const tops = await get('/weapp/top');
+    //   this.tops = tops.list;
+    // }
   },
   onPullDownRefresh() {
     this.getList(true);
