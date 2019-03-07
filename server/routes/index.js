@@ -39,5 +39,6 @@ router.post('/addbook', controllers.addbook)
 // 获取图书列表
 router.get('/booklist', controllers.booklist)
 router.get('/bookdetail', controllers.bookdetail)
+router.get('/top', controllers.top)
 
 module.exports = router

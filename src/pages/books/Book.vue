@@ -53,14 +53,15 @@ export default {
       }
       wx.hideNavigationBarLoading();  // 关闭下拉刷新加载
     },
-    // async getTop() {
-    //   const tops = await get('/weapp/top');
-    //   this.tops = tops.list;
-    // }
+    async getTop() {
+      const tops = await get('/weapp/top');
+      this.tops = tops.list;
+    }
   },
   onPullDownRefresh() {
     this.getList(true);
     // console.log('下拉');
+    this.getTop();
 
   },
   onReachBottom() {
@@ -75,6 +76,7 @@ export default {
   },
   mounted () {
     this.getList(true);
+    this.getTop();
   }
 }
 </script>
