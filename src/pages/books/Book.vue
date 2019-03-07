@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TopSwiper :tops='tops'></TopSwiper>
     <!-- <p>图书列表</p> -->
     <Card v-for="book in books" :key="book.openid" :book='book'></Card>
     <p class="text-footer" v-if="!more">
@@ -21,15 +22,18 @@
 
 import {get} from '@/util'
 import Card from '@/components/Card'
+import TopSwiper from '@/components/TopSwiper'
 export default {
   components: {
-    Card
+    Card,
+    TopSwiper
   },
   data () {
     return {
       books: [],
       page: 0,
       more: true,
+      tops: []
     }
   },
   methods: {
