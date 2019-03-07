@@ -64,7 +64,8 @@ export default {
 
   },
   onReachBottom() {
-    if (!more) {
+    // console.log('没有更多了')
+    if (!this.more) {
       // 没有更多了
       return false;
     }
@@ -77,6 +78,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang='scss'>
+
 
 </style>
