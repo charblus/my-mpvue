@@ -36,3 +36,14 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+
+### mysql语句
+
+Mysql 基本语法
+
+`create  database 数据库名;`    创建数据库
+`show tables; `                查看数据库所有表
+`desc   表名；`           查看数据表
+`alter table books add column count int default 0;`    在books表中添加count  int类型 默认0；
+`select title, count from books; `   查看books表部分数据
+`show create table books;`     查看创建books用了哪些语句
