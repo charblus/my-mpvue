@@ -40,19 +40,19 @@
   </a>
 </template>
 <script>
-import Rate from '@/components/Rate';
+import Rate from '@/components/Rate'
 export default {
-  components:{
+  components: {
     Rate
   },
   props: ['book'],
   computed: {
-    detailUrl() {
-      return '/pages/detail/main?id='+ this.book.id
+    detailUrl () {
+      return '/pages/detail/main?id=' + this.book.id
     }
   },
   methods: {
-    preview() {
+    preview () {
       wx.previewImage({
         current: this.book.image,
         urls: [this.book.image]

@@ -37,6 +37,16 @@ npm run build --report
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 
+
+
+### server
+使用koa开发  
+```
+cd server
+npm run dev
+```
+> server目录下config中需要填写小程序配置信息Appid & App Secret 等（注： 项目放github上App Secret明文显示 会收到腾讯云短信提醒该泄露，安全隐患）
+
 ### mysql语句
 
 Mysql 基本语法
