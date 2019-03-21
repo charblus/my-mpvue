@@ -33,6 +33,13 @@
           {{info.price}}
         </div>
       </div>
+      <!-- 标签和详情 -->
+      <div class="tags">
+        <div class="badge" :key="tag" v-for="tag in info.tags" >{{tag}}</div>
+      </div>
+      <div class="summary">
+        <p :key="i" v-for="(sum, i) in info.summary">{{sum}}</p>
+      </div>
   </div>
 </template>
 <script>
@@ -51,6 +58,22 @@ export default {
 </script>
 <style lang="scss">
 .bookinfo {
+  .summary {
+    padding: 0 15px;
+    margin-top: 10px;
+    p {
+      text-indent: 2em;
+      font-size: 14px;
+    }
+  }
+  .badge {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #EA5A49;
+    color: #EA5A49;
+  }
   font-size: 14px;
   .right {
     float: right;
