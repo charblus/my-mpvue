@@ -62,7 +62,7 @@ export default {
     padding: 0 15px;
     margin-top: 10px;
     p {
-      text-indent: 2em;
+      text-indent: 2em;  // 段落开头缩进2格
       font-size: 14px;
     }
   }
