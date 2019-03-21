@@ -16,15 +16,54 @@
         </div>
       </div>
     </div>
+    <div class="owner detail">
+        <img class="avatar" 
+            :src="userinfo.image"
+            mode="aspectFit">
+           <!-- 添加人 -->
+           {{userinfo.name}}
+        <div class="right text-primary">
+          {{info.rate}}分
+          <Rate :value="info.rate"></Rate>
+        </div>
+      </div>
+      <div class="detail">
+        {{info.publisher}}
+        <div class="right">
+          {{info.price}}
+        </div>
+      </div>
   </div>
 </template>
 <script>
+import Rate from '@/components/Rate'
 export default {
-  props: ['info']
+  components: {
+    Rate
+  },
+  props: ['info'],
+  computed: {
+    userinfo() {
+      return this.info.user_info || {};
+    }
+  }
 }
 </script>
 <style lang="scss">
 .bookinfo {
+  font-size: 14px;
+  .right {
+    float: right;
+  }
+  .detail {
+    padding: 5px 10px;
+    .avatar {
+      width: 40rpx;
+      height: 40rpx;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+  }
   .thumb {
     width: 750rpx;
     height: 450rpx;
