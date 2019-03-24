@@ -48,9 +48,9 @@ export default {
   },
   computed: {
     showAdd () {
-      //未登录
-      if(!this.userinfo.openId) {
-        return false;
+      // 未登录
+      if (!this.userinfo.openId) {
+        return false
       }
       // 评论页面里查到有自己的openid
       if (this.comments.filter(v => v.openid === this.userinfo.openId).length) {
@@ -62,7 +62,7 @@ export default {
   methods: {
     async addComment () {
       if (!this.comment) {
-        return;
+        return
       }
       // 评论内容 手机型号 地理位置 图书id 用户openid
       const data = {
@@ -74,23 +74,23 @@ export default {
       }
       try {
         console.log(data)
-        await post('/weapp/addcomment', data);
-        this.comment = '';
-        this.getComments();
+        await post('/weapp/addcomment', data)
+        this.comment = ''
+        this.getComments()
       } catch (e) {
         showModal('失败', e.msg)
       }
     },
     getGeo (e) {
       // NVYWM4sZYGjaHPpO6vwVk0j1v4ijBBKB
-      const ak = 'NVYWM4sZYGjaHPpO6vwVk0j1v4ijBBKB';
-      let url = 'http://api.map.baidu.com/geocoder/v2/';
+      const ak = 'NVYWM4sZYGjaHPpO6vwVk0j1v4ijBBKB'
+      let url = 'http://api.map.baidu.com/geocoder/v2/'
 
-      if(e.target.value) {
+      if (e.target.value) {
         wx.getLocation({
           type: 'wgs84',
           success: geo => {
-            console.log('地理数据', geo);
+            console.log('地理数据', geo)
             wx.request({
               url,
               data: {
@@ -101,26 +101,25 @@ export default {
               success: res => {
                 console.log('百度api返回', res)
                 if (res.data.status === 0) {
-                  this.location = res.data.result.addressComponent.city;
+                  this.location = res.data.result.addressComponent.city
                 } else {
-                  this.location = '未知地点';
+                  this.location = '未知地点'
                 }
               }
             })
-            
           }
         })
       } else {
-        this.location = '';
+        this.location = ''
       }
     },
-    getPhone(e) {
-      if(e.target.value) {
-        const res = wx.getSystemInfoSync();
+    getPhone (e) {
+      if (e.target.value) {
+        const res = wx.getSystemInfoSync()
         // console.log(res.model);
-        this.phone = res.model;
+        this.phone = res.model
       } else {
-        this.phone = '';
+        this.phone = ''
       }
     },
     async getDetail () {
@@ -132,16 +131,16 @@ export default {
       this.info = info
     },
     async getComments () {
-      const comments = await get('/weapp/commentlist', {bookid: this.bookid});
-      console.log('comments', comments);
+      const comments = await get('/weapp/commentlist', {bookid: this.bookid})
+      console.log('comments', comments)
       this.comments = comments.list || []
     }
   },
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     return {
       title: this.info.title,
       path: 'pages/detail/main',
-      imageUrl:'',  // 不填写默认页面截图
+      imageUrl: '' // 不填写默认页面截图
       // success: function (shareTickets) {
       //   // console.info(shareTickets + '成功');
       //   console.log(shareTickets + '成功');
@@ -156,15 +155,15 @@ export default {
       //   // 不管成功失败都会执行
       // }
     }
-	},
+  },
   mounted () {
-    this.bookid = this.$root.$mp.query.id;  // 跳转页面使用this.$root.$mp.query获取参数
-    this.getDetail();
-    this.getComments();
+    this.bookid = this.$root.$mp.query.id // 跳转页面使用this.$root.$mp.query获取参数
+    this.getDetail()
+    this.getComments()
     const userinfo = wx.getStorageSync('userInfo')
-    console.log('userInfo', userinfo);
+    console.log('userInfo', userinfo)
     if (userinfo) {
-      this.userinfo = userinfo;
+      this.userinfo = userinfo
     }
     // wx.showShareMenu({
     //   withShareTicket: true

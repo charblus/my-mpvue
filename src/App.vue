@@ -1,6 +1,6 @@
 
 <script>
-import qcloud from 'wafer2-client-sdk'
+// import qcloud from 'wafer2-client-sdk'
 export default {
   async created () {
     // const res = await get('/weapp/demo')

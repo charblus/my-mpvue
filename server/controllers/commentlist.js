@@ -3,8 +3,8 @@ const { mysql } = require('../qcloud')
 module.exports = async (ctx) => {
   const {bookid, openid} = ctx.request.query
   const mysqlSelect = mysql('comments')
-                    .select('comments.*', 'cSessionInfo.user_info')
-                    .join('cSessionInfo', 'comments.openid', 'cSessionInfo.open_id')
+    .select('comments.*', 'cSessionInfo.user_info')
+    .join('cSessionInfo', 'comments.openid', 'cSessionInfo.open_id')
   let comments
   if (bookid) {
     // 图书详情的评论列表
@@ -24,4 +24,3 @@ module.exports = async (ctx) => {
     })
   }
 }
-

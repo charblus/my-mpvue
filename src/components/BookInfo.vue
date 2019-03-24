@@ -50,8 +50,8 @@ export default {
   },
   props: ['info'],
   computed: {
-    userinfo() {
-      return this.info.user_info || {};
+    userinfo () {
+      return this.info.user_info || {}
     }
   }
 }

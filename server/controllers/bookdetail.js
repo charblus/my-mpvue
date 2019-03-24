@@ -3,10 +3,10 @@ const {mysql} = require('../qcloud')
 module.exports = async (ctx) => {
   const {id} = ctx.request.query
   const detail = await mysql('books')
-                       .select('books.*', 'cSessionInfo.user_info')
-                       .join('cSessionInfo', 'books.openid', 'cSessionInfo.open_id')
-                       .where('id', id)
-                       .first()
+    .select('books.*', 'cSessionInfo.user_info')
+    .join('cSessionInfo', 'books.openid', 'cSessionInfo.open_id')
+    .where('id', id)
+    .first()
 
   // console.log(detail)
   const info = JSON.parse(detail.user_info)
@@ -21,6 +21,6 @@ module.exports = async (ctx) => {
 
   // 浏览量+1
   await mysql('books')
-          .where('id', id)
-          .increment('count', 1)
+    .where('id', id)
+    .increment('count', 1)
 }
